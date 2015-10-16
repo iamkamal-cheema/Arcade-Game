@@ -25,7 +25,11 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-var enemy1 = new Enemy(5,200)
+var enemy1 = new Enemy(5,240);
+var enemy2 = new Enemy(5,150);
+var enemy3 = new Enemy(5,70);
+var enemy4 = new Enemy(5,315);
+
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -46,12 +50,12 @@ Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-  var player= new Player(200,400);
+  var player= new Player(200,410);
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies=[enemy,enemy1];
+var allEnemies=[enemy,enemy1,enemy2,enemy3,enemy4];
 
 
 

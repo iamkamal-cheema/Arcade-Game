@@ -43,6 +43,7 @@ var enemy4 = new Enemy(5,315);
 var Player = function (x,y) {
     this.x = x;
     this.y= y;
+    this.movement = 100;
 
     this.sprite = 'images/char-boy.png';
 };
@@ -56,13 +57,32 @@ Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-  var player= new Player(200,410);
+  var player= new Player(200,390);
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies=[enemy,enemy1,enemy2,enemy3,enemy4];
 
+Player.prototype.handleInput = function (keyCode){
+  if(keyCode == 'left')
+  { this.x -= this.movement;}
+  else if(keyCode == 'right')
+  {this.x += this.movement;}
+  else if (keyCode == 'down')
+  {this.y += this.movement;}
+  else  {
+   this.y -= this.movement;}
+  if(keyCode == 'left' && this.x + this.movement <= 10)
+  {this.x = this.x + this.movement;}
+  else if(keyCode == 'right' && this.x - this.movement >= 400)
+  {this.x = this.x - this.movement;}
+  else if (keyCode = 'up' && this.y + this.movement >= 450)
+  {this.y = this.y - this.movement;}
+  else if (keyCode = 'down' && this.y + this.movement <= 0)
+  {this.y = this.y + this.movement;}
+}
+var keystrokes = new player.handleInput();
 
 
 // This listens for key presses and sends the keys to your

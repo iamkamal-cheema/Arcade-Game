@@ -4,6 +4,7 @@ var Enemy = function(x,y) {
     // we've provided one for you to get started
     this.x = x;
     this.y= y;
+    // To calculate speed of enemies
     this.speed=Math.floor(Math.random() * 150) +120;
 
 
@@ -31,11 +32,14 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+//Different instances of enemies
 var enemy1 = new Enemy(5,240);
 var enemy2 = new Enemy(5,150);
 var enemy3 = new Enemy(5,70);
 var enemy4 = new Enemy(5,315);
 
+// Place all enemy objects in an array called allEnemies
+var allEnemies=[enemy,enemy1,enemy2,enemy3,enemy4];
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -52,15 +56,15 @@ Player.prototype.update = function (dt) {
 checkCollisions();
 
 };
-var allEnemies=[enemy,enemy1,enemy2,enemy3,enemy4];
+
 
 Player.prototype.render = function () {
 
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
+   // Place the player object in a variable called player
   var player= new Player(200,390);
-
+  //Collision detection
   function checkCollisions(){
      var reset = function () {
         player.x = 200;
@@ -74,16 +78,16 @@ Player.prototype.render = function () {
           reset();
         }
     }
-    if (player.y < 0) {
+    if (player.y < -9) {
         reset();
     };
 }
 
 
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
+
+
+
 
 
 

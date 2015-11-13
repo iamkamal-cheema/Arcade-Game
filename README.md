@@ -18,6 +18,8 @@ Resources I referred to while working on this project:
 
 2.https://github.com/lacyjpr/arcade/blob/master/js/app.js
 
-3.The Udacity Front-End Nanodegree Forums: 
+3. https://github.com/asaki444/frontendfrogger/blob/master/js/app.js
+
+4.The Udacity Front-End Nanodegree Forums: 
 
 https://discussions.udacity.com/c/nd001-project-3-classic-arcade-game-clone

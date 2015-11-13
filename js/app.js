@@ -4,7 +4,7 @@ var Enemy = function(x,y) {
     // we've provided one for you to get started
     this.x = x;
     this.y= y;
-    this.speed=Math.floor(Math.random() * 150) +50;
+    this.speed=Math.floor(Math.random() * 150) +120;
 
 
     // The image/sprite for our enemies, this uses
@@ -23,7 +23,7 @@ Enemy.prototype.update = function(dt) {
     if(this.x <= 550){
      this.x += this.speed * dt;
  }else{
-     this.x = -150;
+     this.x = -20;
  }
 };
 
@@ -43,14 +43,16 @@ var enemy4 = new Enemy(5,315);
 var Player = function (x,y) {
     this.x = x;
     this.y= y;
-    this.movement = 100;
+    this.movement = 50;
 
     this.sprite = 'images/char-boy.png';
 };
 
 Player.prototype.update = function (dt) {
+checkCollisions();
 
 };
+var allEnemies=[enemy,enemy1,enemy2,enemy3,enemy4];
 
 Player.prototype.render = function () {
 
@@ -59,10 +61,33 @@ Player.prototype.render = function () {
 
   var player= new Player(200,390);
 
+  function checkCollisions(){
+     var reset = function () {
+        player.x = 200;
+        player.y = 390;
+      }
+    for (var i = 0; i < allEnemies.length; i++) {
+        if (allEnemies[i].x <= (player.x + 30) &&
+            (allEnemies[i].x + 30) >= player.x &&
+            allEnemies[i].y <= (player.y + 30) &&
+            (allEnemies[i].y + 30) >= player.y) {
+          reset();
+        }
+    }
+    if (player.y < 0) {
+        reset();
+    };
+}
+
+
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies=[enemy,enemy1,enemy2,enemy3,enemy4];
+
+
+
+
 
 Player.prototype.handleInput = function (keyCode){
   if(keyCode == 'left')
@@ -77,8 +102,9 @@ Player.prototype.handleInput = function (keyCode){
   {this.x = this.x + this.movement;}
   else if(keyCode == 'right' && this.x - this.movement >= 400)
   {this.x = this.x - this.movement;}
-  else if (keyCode = 'up' && this.y + this.movement >= 450)
-  {this.y = this.y - this.movement;}
+  else if (keyCode = 'up' && this.y + this.movement >= 440)
+  {this.y = this.y - this.movement;
+  reset();}
   else if (keyCode = 'down' && this.y + this.movement <= 0)
   {this.y = this.y + this.movement;}
 }

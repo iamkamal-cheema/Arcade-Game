@@ -1,3 +1,5 @@
+//strict Mode in action
+"use strict";
 // Enemies our player must avoid
 var Enemy = function (x, y) {
     // Variables applied to each of our instances go here,
@@ -53,24 +55,11 @@ var Player = function (x, y) {
 };
 
 Player.prototype.update = function (dt) {
-    var check = new player.checkCollisions();
+    this.checkCollisions();
 
 };
 
-//target object
 
-var Goal = function (x, y) {
-    this.x = x;
-    this.y = y;
-    this.sprite = 'images/Key.png';
-};
-var goal = new Goal(200, -30);
-
-//render object on screen
-Goal.prototype.render = function () {
-
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
 
 Player.prototype.render = function () {
 
@@ -80,25 +69,27 @@ Player.prototype.render = function () {
 var player = new Player(200, 389);
 //Collision detection
 Player.prototype.checkCollisions = function () {
-    var reset = function () {
-        player.x = 200;
-        player.y = 389;
-    };
-    for (var i = 0; i < allEnemies.length; i++) {
-        if (allEnemies[i].x <= (player.x + 30) &&
-            (allEnemies[i].x + 30) >= player.x &&
-            allEnemies[i].y <= (player.y + 30) &&
-            (allEnemies[i].y + 30) >= player.y) {
+    var l= allEnemies.length;
+
+    for (var i = 0; i < l; i++) {
+        if (allEnemies[i].x <= (this.x + 30) &&
+            (allEnemies[i].x + 30) >= this.x &&
+            allEnemies[i].y <= (this.y + 30) &&
+            (allEnemies[i].y + 30) >= this.y) {
             alert("Game Over!");
-            reset();
+            this.reset();
         }
     }
-    if (player.y < -10) {
-        alert("You Won!");
-        reset();
+    if (this.y <= -15) {
+        //alert("You Won!");
+        this.reset();
     }
 };
 
+Player.prototype.reset = function () {
+        this.x = 200;
+        this.y = 389;
+};
 
 
 
@@ -107,9 +98,9 @@ Player.prototype.handleInput = function (keyCode) {
         this.x -= this.movement;
     } else if (keyCode == 'right') {
         this.x += this.movement;
-    } else if (keyCode == 'down') {
+    }  if (keyCode == 'down' && this.y < 389) {
         this.y += this.movement;
-    } else {
+    } else if(keyCode == 'up') {
         this.y -= this.movement;
     }
     if (keyCode == 'left' && this.x + this.movement <= 0) {
@@ -119,9 +110,7 @@ Player.prototype.handleInput = function (keyCode) {
     }
     if (keyCode == 'up' && this.y + this.movement >= 450) {
         this.y = this.y - this.movement;
-        //reset();
-    } else if (keyCode == 'down' && this.y + this.movement <= 0) {
-        this.y = this.y + this.movement;
+        reset();
     }
 };
 var keystrokes = new player.handleInput();
